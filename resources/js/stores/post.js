@@ -6,7 +6,7 @@ export default {
     },
 
     mutations: {
-        SET_ALL_POSTS({ state }, allPosts) {
+        SET_ALL_POSTS(state, allPosts) {
             state.posts = allPosts;
         }
     },
@@ -17,6 +17,14 @@ export default {
                 .then(response => {
                     let oData = response.data.data;
                     commit('SET_ALL_POSTS', oData);
+                });
+        },
+
+        createPost({ commit }, postData) {
+            console.log(postData);
+            postService.createPost(postData)
+                .then(response => {
+                    console.log(response);
                 });
         }
     },

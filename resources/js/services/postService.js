@@ -13,9 +13,9 @@ postBaseClient.interceptors.response.use(
     response => response,
     error => {
         if (error.response.status === 401) {
-            alert(error.response.message);
-            localStorage.removeItem('token');
-            location.replace('/');
+            // localStorage.removeItem('token');
+            // location.replace('/');
+            alert('Unathorized access');
         }
         return Promise.reject(error);
     }
@@ -24,5 +24,9 @@ postBaseClient.interceptors.response.use(
 export default {
     async getAllFriendPost() {
         return await postBaseClient.get('');
+    },
+
+    async createPost(postData) {
+        return await postBaseClient.post('', postData);
     }
 }

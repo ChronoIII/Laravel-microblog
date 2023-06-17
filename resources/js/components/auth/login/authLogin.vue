@@ -1,24 +1,15 @@
 <template>
     <div class="auth login">
         <div v-if="page === 'login' || page === ''" class="login-form">
-            <label for="txt_username">
-                <span>Username</span>
-            </label>
-            <input
+            <textbox
                 v-model="username"
-                type="text"
-                name="uname"
-                id="txt_username">
+                id="txt_username"
+                label="Username" />
 
-
-            <label for="txt_password">
-                <span>Password</span>
-            </label>
-            <input
+            <textbox
                 v-model="password"
-                type="password"
-                name="password"
-                id="txt_password">
+                id="txt_password"
+                label="Password" />
 
             <div class="sizedbox"></div>
 
@@ -33,9 +24,15 @@
 <script>
 import { mapActions } from 'vuex';
 
+import Textbox from '../../common/textbox';
+
 export default {
     props: {
         page: 'String',
+    },
+
+    components: {
+        Textbox,
     },
 
     data() {
@@ -93,29 +90,6 @@ export default {
     .login-form > * {
         margin-left: 20px;
         margin-right: 20px;
-    }
-
-    input {
-        padding: 3px 10px;
-    }
-
-    label > span {
-        /* position: absolute; */
-        /* margin-top: 5px; */
-        /* margin-left: 10px; */
-
-        /* position: absolute; */
-        font-size: 10px;
-        color: #0009;
-        cursor: text;
-    }
-
-    /* label > input:focus ~ span {
-        font-size: 10px;
-    } */
-
-    label > input {
-        width: 100%;
     }
 
     .sizedbox {

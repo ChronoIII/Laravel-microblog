@@ -5,19 +5,29 @@ export default {
         user: null,
     },
     mutations: {
-        SET_USER({ state }, oUser) {
+        SET_USER(state, oUser) {
             state.user = oUser;
         }
     },
     actions: {
-        loginUser({ commit }, aParameters) {
-            authService.loginUser(aParameters)
+        async loginUser({ commit }, aParameters) {
+            await authService.loginUser(aParameters)
                 .then(response => {
                     let oData = response.data.data;
                     let sToken = oData.token;
                     let oUser = oData.user;
+                    console.log(sToken);
                     localStorage.setItem('token', sToken);
                     commit('SET_USER', oUser);
+
+                    location.replace('/home');
+                });
+        },
+
+        registerUser({ commit }, aParameters) {
+            authService.registerUser(aParameters)
+                .then(response => {
+                    alert('Register completed.');
                 });
         }
     },

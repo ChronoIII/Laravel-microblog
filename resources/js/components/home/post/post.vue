@@ -1,6 +1,6 @@
 <template>
     <div class="post-container">
-        <div v-if="posts.length > 0" class="post">
+        <div v-if="posts.length > 0">
             <template v-for="post in posts">
                 <post-row :post-data="post" />
             </template>
@@ -46,13 +46,7 @@ export default {
 
 <style scoped>
     .post-container {
-        border-top: 1px solid #fdcaaa27;
+        border-top: 2px solid #fdcaaa27;
         margin-top: 15px;
-    }
-
-    .post {
-        padding: 10px 20px;
-        background: #fdcaaa27;
-        border-radius: 10px;
     }
 </style>

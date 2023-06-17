@@ -1,46 +1,50 @@
 <template>
     <div class="auth signup">
         <div v-if="page === 'signup'" class="signup-form">
-            <label for="txt_username">
-                <span>Username</span>
-            </label>
-            <input
+            <textbox
                 v-model="username"
-                type="text"
-                name="uname"
-                id="txt_username">
+                id="txt_username"
+                label="Username" />
 
-            <label for="txt_email">
-                <span>Email</span>
-            </label>
-            <input
+            <textbox
+                v-model="firstName"
+                id="txt_firstName"
+                label="First name" />
+
+            <span style="width: 10px;"></span>
+
+            <textbox
+                v-model="lastName"
+                id="txt_lastName"
+                label="Last name" />
+
+            <textbox
                 v-model="email"
-                type="text"
-                name="email"
-                id="txt_email">
+                id="txt_email"
+                label="Email" />
 
-            <label for="txt_password">
-                <span>Password</span>
-            </label>
-            <input
+            <textbox
                 v-model="password"
-                type="password"
-                name="password"
-                id="txt_password">
+                id="txt_password"
+                label="Password" />
 
-            <label for="txt_password_confirmation">
-                <span>Confirm Password</span>
-            </label>
-            <input
+            <textbox
                 v-model="password_confirmation"
-                type="password"
-                name="password_confirmation"
-                id="txt_password_confirmation">
+                id="txt_password_confirmation"
+                label="Confirm Password" />
 
-            <div class="sizedbox"></div>
+            <div style="height: 30px;"></div>
 
-            <button class="btn btn_create">Create an account</button>
-            <button class="btn btn_back" @click="changePage">Back to login</button>
+            <button
+                class="btn btn_create"
+                @click="attemptRegistration">
+                Create an account
+            </button>
+            <button
+                class="btn btn_back"
+                @click="changePage">
+                Back to login
+            </button>
         </div>
 
         <div v-if="page !== 'signup'" class="signup-image"></div>
@@ -48,26 +52,46 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
+import Textbox from '../../common/textbox';
 
 export default {
     props: {
         page: 'String'
     },
-
+    components: {
+        Textbox,
+    },
     data() {
         return {
             username: '',
             email: '',
+            firstName: '',
+            lastName: '',
             password: '',
             password_confirmation: '',
-        }
+        };
     },
-
     methods: {
+        ...mapActions([
+            'registerUser'
+        ]),
         changePage() {
             this.$emit('change-page', 'login');
+        },
+
+        attemptRegistration() {
+            this.registerUser({
+                username: this.username,
+                email: this.email,
+                firstName: this.firstName,
+                lastName: this.lastName,
+                password: this.password,
+                password_confirmation: this.password_confirmation,
+            });
         }
-    }
+    },
 }
 </script>
 
@@ -76,7 +100,6 @@ export default {
         width: 100%;
         height: calc(100lvh - 50px);
         background: #fff9;
-        display: flex;
     }
 
     .signup-image {
@@ -95,18 +118,7 @@ export default {
     }
 
     .signup-form > * {
-        margin-left: 20px;
-        margin-right: 20px;
-    }
-
-    label > span {
-        font-size: 12px;
-        color: #000;
-        cursor: text;
-    }
-
-    .sizedbox {
-        height: 30px;
+        margin: 0 20px;
     }
 
     .btn {

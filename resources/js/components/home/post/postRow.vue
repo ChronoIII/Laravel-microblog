@@ -1,36 +1,38 @@
 <template>
-    <div class="post-info">
-        <img
-            class="post-avatar"
-            src="https://i1.sndcdn.com/artworks-srzzrusovzQ7qySb-XeY3CA-t500x500.jpg"
-            alt="minato aqua">
+    <div class="post-body">
+        <div class="post-info">
+            <img
+                class="post-avatar"
+                src="https://i1.sndcdn.com/artworks-srzzrusovzQ7qySb-XeY3CA-t500x500.jpg"
+                alt="minato aqua">
 
-        <div style="display: flex; flex-direction: column;">
-            <span>Minato Aqua</span>
-            <span style="font-size: 12px; color: dimgray;">1hr</span>
+            <div style="display: flex; flex-direction: column;">
+                <span>Minato Aqua</span>
+                <span style="font-size: 12px; color: dimgray;">1hr</span>
+            </div>
         </div>
-    </div>
 
-    <div>
-        <p>{{ postData.post_content }}</p>
-    </div>
+        <div>
+            <p>{{ postData.post_content }}</p>
+        </div>
 
-    <div class="post-command">
-        <a href="#">Love</a>
-        <a href="#">Comment</a>
-        <a href="#">Share</a>
-    </div>
+        <div class="post-command">
+            <a href="#">Love</a>
+            <a href="#">Comment</a>
+            <a href="#">Share</a>
+        </div>
 
-    <div class="comment-container">
-        <img
-            class="post-avatar"
-            src="https://i1.sndcdn.com/artworks-srzzrusovzQ7qySb-XeY3CA-t500x500.jpg"
-            alt="minato aqua">
+        <div class="comment-container">
+            <img
+                class="post-avatar"
+                src="https://i1.sndcdn.com/artworks-srzzrusovzQ7qySb-XeY3CA-t500x500.jpg"
+                alt="minato aqua">
 
-        <textarea
-            v-model="writtenComment"
-            class="comment-textarea"
-            placeholder="Write a comment..."></textarea>
+            <textarea
+                v-model="writtenComment"
+                class="comment-textarea"
+                placeholder="Write a comment..."></textarea>
+        </div>
     </div>
 </template>
 
@@ -54,6 +56,13 @@ export default {
 </script>
 
 <style scoped>
+    .post-body {
+        margin: 15px 0;
+        background: #fdcaaa27;
+        border-radius: 10px;
+        padding: 20px;
+    }
+
     .post-info {
         display: flex;
         margin-bottom: 10px;

@@ -12,9 +12,11 @@ class RegisterUserRequest extends FormRequest
 
     public function rules() {
         return [
-            'username'  => ['required', 'string', 'max:255', 'unique:t_user_credentials,username'],
-            'email'     => ['required', 'string', 'max:255', 'email'],
-            'password'  => ['required', 'string', 'confirmed']
+            'username'      => ['required', 'string', 'max:255', 'unique:t_user_credentials,username'],
+            'email'         => ['required', 'string', 'max:255', 'email'],
+            'password'      => ['required', 'string', 'confirmed'],
+            'firstName'    => ['required', 'string', 'max:255'],
+            'lastName'     => ['required', 'string', 'max:255'],
         ];
     }
 }

@@ -18,7 +18,7 @@ class CreateUserProfileTable extends Migration
             $table->integer('user_credential_id');
             $table->text('first_name');
             $table->text('last_name');
-            $table->timestamp('birthdate');
+            $table->timestamp('birthdate')->nullable();
             $table->timestamps();
         });
     }

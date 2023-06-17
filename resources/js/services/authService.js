@@ -11,5 +11,9 @@ const baseClient = axios.create({
 export default {
     async loginUser(aParameters) {
         return await baseClient.post('login', aParameters);
+    },
+
+    async registerUser(aParameters) {
+        return await baseClient.post('register', aParameters);
     }
 }

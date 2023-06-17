@@ -6,10 +6,15 @@
             alt="minato aqua">
 
         <div class="write-container">
-            <textarea
-                v-model="postContent"
-                @key.enter="createPost"
-                placeholder="Write something..."></textarea>
+            <div style="display: flex; margin: auto;">
+                <textarea
+                    class="post-textarea"
+                    v-model="postContent"
+                    placeholder="Write something..."></textarea>
+                <a @click.prevent="postSomething" href="#" style="display: flex; align-items: center; margin-left: 10px;">
+                    <span>Post</span>
+                </a>
+            </div>
 
             <div class="command-container">
                 <a href="#">Upload a photo</a>
@@ -31,16 +36,20 @@ export default {
 
     methods: {
         ...mapActions([
-            'createPost'
+            'createPost',
+            'getAllFriendPost',
         ]),
-        createPost() {
+
+        postSomething() {
             this.createPost({
-                post_content: this.post_content,
+                post_content: this.postContent,
             });
 
             alert('Post published...');
 
             this.postContent = '';
+
+            this.getAllFriendPost();
         }
     }
 }
@@ -70,7 +79,7 @@ export default {
         margin: 10px;
     }
 
-    .write-container > textarea {
+    .post-textarea {
         width: 100%;
         border-radius: 10px;
         resize: none;
@@ -80,6 +89,8 @@ export default {
 
     .command-container {
         display: flex;
+        align-items: center;
         justify-content: space-around;
+        height: 40px;
     }
 </style>

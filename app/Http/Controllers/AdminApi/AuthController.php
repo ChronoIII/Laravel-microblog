@@ -7,6 +7,7 @@ use App\Requests\Auth\LoginUserRequest;
 use App\Requests\Auth\RegisterUserRequest;
 
 use App\Models\UserCredentialModel;
+use App\Models\UserProfileModel;
 
 class AuthController extends Controller
 {
@@ -25,6 +26,8 @@ class AuthController extends Controller
             ], 401);
         }
 
+        $oUser->tokens()->delete();
+
         return response()->json([
             'data'      => [
                 'user'      => $oUser,
@@ -35,10 +38,16 @@ class AuthController extends Controller
     }
 
     public function register(RegisterUserRequest $request) {
-        UserCredentialModel::create([
+        $aUserCredential = UserCredentialModel::create([
             'username'      => $request->get('username'),
             'email'         => $request->get('email'),
             'password'      => password_hash($request->get('password'), PASSWORD_DEFAULT),
+        ]);
+
+        $aUserProfile = UserProfileModel::create([
+            'user_credential_id'    => $aUserCredential['user_credential_id'],
+            'first_name'            => $request->get('firstName'),
+            'last_name'             => $request->get('lastName'),
         ]);
 
         return response()->json([
