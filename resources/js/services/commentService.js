@@ -1,15 +1,15 @@
 import axios from 'axios';
 
-const postBaseClient = axios.create({
-    baseURL: 'api/admin/post',
+const commentBaseClient = axios.create({
+    baseURL: 'api/admin/comment',
     headers: {
         'Authorization': 'Bearer ' + localStorage.getItem('token'),
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-    },
+    }
 });
 
-postBaseClient.interceptors.response.use(
+commentBaseClient.interceptors.response.use(
     response => response,
     error => {
         if (error.response.status === 401) {
@@ -22,11 +22,7 @@ postBaseClient.interceptors.response.use(
 );
 
 export default {
-    async getAllFriendPost() {
-        return await postBaseClient.get('');
-    },
-
-    async createPost(postData) {
-        return await postBaseClient.post('', postData);
+    async storeComment(aParameter) {
+        return await commentBaseClient.post('', aParameter);
     }
 }

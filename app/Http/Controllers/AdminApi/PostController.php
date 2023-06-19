@@ -4,28 +4,28 @@ namespace App\Http\Controllers\AdminApi;
 
 use App\Http\Controllers\Controller;
 use App\Requests\Posts\StorePostRequest;
-use App\Models\PostModel;
+use App\Services\PostService;
 
 class PostController extends Controller
 {
-    public function __construct() {
+    private $oPostService;
 
+    public function __construct(PostService $oPostService) {
+        $this->oPostService = $oPostService;
     }
 
     public function index() {
+        $oResponse = $this->oPostService->getPosts();
         return response()->json([
-            'data'  => PostModel::query()->orderBy('created_at', 'DESC')->get(),
+            'data'  => $oResponse,
         ], 200);
     }
 
     public function store(StorePostRequest $request) {
-        $aPost = PostModel::create([
-            'post_content'          => $request->get('post_content'),
-            'user_credential_id'    => auth('sanctum')->user()->user_credential_id,
-        ]);
-
+        $aData = $request->validated();
+        $oResponse = $this->oPostService->createPost($aData);
         return response()->json([
-            'data'      => $aPost,
+            'data'      => $oResponse,
             'message'   => 'Post created successfully.'
         ], 201);
     }

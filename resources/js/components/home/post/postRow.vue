@@ -32,11 +32,14 @@
                 v-model="writtenComment"
                 class="comment-textarea"
                 placeholder="Write a comment..."></textarea>
+
+            <a href="#" @click="postComment">Comment</a>
         </div>
     </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 
 export default {
     props: ['postData'],
@@ -48,8 +51,17 @@ export default {
     },
 
     methods: {
-        postComment() {
+        ...mapActions([
+            'createComment',
+        ]),
 
+        postComment() {
+            this.createComment({
+                post_id: this.postData.post_id,
+                comment_content: this.writtenComment,
+            });
+
+            this.writtenComment = '';
         }
     }
 }

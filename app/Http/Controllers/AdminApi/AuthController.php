@@ -6,53 +6,29 @@ use App\Http\Controllers\Controller;
 use App\Requests\Auth\LoginUserRequest;
 use App\Requests\Auth\RegisterUserRequest;
 
-use App\Models\UserCredentialModel;
-use App\Models\UserProfileModel;
+use App\Services\AuthService;
 
 class AuthController extends Controller
 {
-    public function __construct() {
+    private $oAuthService;
 
+    public function __construct(AuthService $oAuthService) {
+        $this->oAuthService = $oAuthService;
     }
 
     public function login(LoginUserRequest $request) {
-        $oUser = UserCredentialModel::where('username', '=', $request->get('username'))->first();
-
-        if (($oUser == null) || (password_verify($request->get('password'), $oUser['password']) == false)) {
-            // Credentials do not match a record.
-            return response()->json([
-                'data'      => null,
-                'message'   => 'credentials do not match a record.'
-            ], 401);
-        }
-
-        $oUser->tokens()->delete();
+        $oResponse = $this->oAuthService->loginUser($request->validated());
+        $iCode = ($oResponse['user'] !== null) ? 200 : 401;
 
         return response()->json([
-            'data'      => [
-                'user'      => $oUser,
-                'token'     => $oUser->createToken('API token of ' . $oUser['username'])->plainTextToken,
-            ],
-            'message'   => 'success',
-        ], 200);
+            'data'  => $oResponse,
+        ], $iCode);
     }
 
     public function register(RegisterUserRequest $request) {
-        $aUserCredential = UserCredentialModel::create([
-            'username'      => $request->get('username'),
-            'email'         => $request->get('email'),
-            'password'      => password_hash($request->get('password'), PASSWORD_DEFAULT),
-        ]);
-
-        $aUserProfile = UserProfileModel::create([
-            'user_credential_id'    => $aUserCredential['user_credential_id'],
-            'first_name'            => $request->get('firstName'),
-            'last_name'             => $request->get('lastName'),
-        ]);
-
+        $oResponse = $this->oAuthService->registerUser($request->validated());
         return response()->json([
-            'data'      => null,
-            'message'   => 'success'
+            'data'  => $oResponse
         ], 201);
     }
 }

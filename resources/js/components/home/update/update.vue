@@ -17,8 +17,21 @@
             </div>
 
             <div class="command-container">
-                <a href="#">Upload a photo</a>
+                <input
+                    ref="upload_image"
+                    @input="includePostImage"
+                    type="file"
+                    style="display: none" />
+                <a href="#" @click="uploadPostImage">Upload a photo</a>
                 <a href="#">Feeling/Activity</a>
+            </div>
+
+            <div v-if="postImages.length > 0">
+                <template v-for="postImage in postImages">
+                    <div>
+                        <img :src="readPostImage(postImage)" alt="test">
+                    </div>
+                </template>
             </div>
         </div>
     </div>
@@ -31,6 +44,7 @@ export default {
     data() {
         return {
             postContent: '',
+            postImages: []
         }
     },
 
@@ -50,6 +64,28 @@ export default {
             this.postContent = '';
 
             this.getAllFriendPost();
+        },
+
+        readPostImage(data) {
+            if (data) {
+                var test = null;
+                const reader = new FileReader;
+                reader.onload = (e) => {
+                    test = e.target.result;
+                }
+                reader.readAsDataURL(data);
+                return test;
+            }
+        },
+
+        includePostImage(event) {
+            if (event.target.files) {
+                this.postImages.push(event.target.files[0]);
+            }
+        },
+
+        uploadPostImage() {
+            this.$refs.upload_image.click();
         }
     }
 }

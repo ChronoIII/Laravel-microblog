@@ -15,8 +15,8 @@ class CreateUserCredentialsTable extends Migration
     {
         Schema::create('t_user_credentials', function (Blueprint $table) {
             $table->bigIncrements('user_credential_id');
-            $table->string('username');
-            $table->string('email')->unique();
+            $table->string('username')->unique();
+            $table->string('email');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             // $table->rememberToken();

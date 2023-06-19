@@ -85,8 +85,8 @@ export default {
             this.registerUser({
                 username: this.username,
                 email: this.email,
-                firstName: this.firstName,
-                lastName: this.lastName,
+                first_name: this.firstName,
+                last_name: this.lastName,
                 password: this.password,
                 password_confirmation: this.password_confirmation,
             });

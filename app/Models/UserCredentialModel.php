@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Sanctum\HasApiTokens;
 
+use App\Models\UserProfileModel;
+
 class UserCredentialModel extends Model
 {
     use HasApiTokens;
@@ -13,5 +15,13 @@ class UserCredentialModel extends Model
 
     protected $primaryKey = 'user_credential_id';
 
-    protected $guarded = [];
+    protected $fillable = [
+        'username',
+        'email',
+        'password'
+    ];
+
+    public function userProfile() {
+        return $this->hasOne(UserProfileModel::class, 'user_profile_id', 'user_profile_id');
+    }
 }

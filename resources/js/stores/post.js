@@ -1,4 +1,5 @@
 import postService from '../services/postService';
+import commentService from '../services/commentService';
 
 export default {
     state: {
@@ -21,8 +22,14 @@ export default {
         },
 
         createPost({ commit }, postData) {
-            console.log(postData);
             postService.createPost(postData)
+                .then(response => {
+                    console.log(response);
+                });
+        },
+
+        createComment({ commit }, commentData) {
+            commentService.storeComment(commentData)
                 .then(response => {
                     console.log(response);
                 });

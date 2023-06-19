@@ -10,5 +10,10 @@ class UserProfileModel extends Model
 
     protected $primaryKey = 'user_profile_id';
 
-    protected $guarded = [];
+    protected $fillable = [
+        'user_credential_id',
+        'first_name',
+        'last_name',
+        'birthdate'
+    ];
 }
