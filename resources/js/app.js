@@ -1,5 +1,7 @@
 require('./bootstrap');
 
+import 'bootstrap/js/index.esm';
+
 import { createApp } from 'vue';
 import appComponent from './components/app';
 import store from './store';

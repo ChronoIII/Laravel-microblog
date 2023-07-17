@@ -13,23 +13,20 @@ export default {
     },
 
     actions: {
-        getAllFriendPost({ commit }) {
-            postService.getAllFriendPost()
+        async getAllFriendPost({ commit }) {
+            await postService.getAllFriendPost()
                 .then(response => {
                     let oData = response.data.data;
                     commit('SET_ALL_POSTS', oData);
                 });
         },
 
-        createPost({ commit }, postData) {
-            postService.createPost(postData)
-                .then(response => {
-                    console.log(response);
-                });
+        async createPost({ commit }, postData) {
+            await postService.createPost(postData);
         },
 
-        createComment({ commit }, commentData) {
-            commentService.storeComment(commentData)
+        async createComment({ commit }, commentData) {
+            await commentService.storeComment(commentData)
                 .then(response => {
                     console.log(response);
                 });

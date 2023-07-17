@@ -13,6 +13,7 @@ class StorePostRequest extends FormRequest
     public function rules() {
         return [
             'post_content'  => ['required', 'string', 'max:255'],
+            'image'         => ['array', 'filled'],
         ];
     }
 }

@@ -22,6 +22,6 @@ class UserCredentialModel extends Model
     ];
 
     public function userProfile() {
-        return $this->hasOne(UserProfileModel::class, 'user_profile_id', 'user_profile_id');
+        return $this->hasOne(UserProfileModel::class, 'user_credential_id', 'user_credential_id');
     }
 }

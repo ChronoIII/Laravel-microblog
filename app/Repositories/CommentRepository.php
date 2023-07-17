@@ -13,7 +13,7 @@ class CommentRepository
         $this->oCommentModel = $oCommentModel;
     }
 
-    public function createComment(array $aData) {
+    public function saveComment(array $aData) {
         $aCommentData = Arr::only($aData, $this->oCommentModel->getFillable());
         return $this->oCommentModel->create($aCommentData);
     }

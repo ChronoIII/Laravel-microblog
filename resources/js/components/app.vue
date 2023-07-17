@@ -1,11 +1,16 @@
 <template>
-  <div class="navigation-bar">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a href="#" class="navbar-brand">⚓ Anchor</a>
 
-  </div>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
 
-  <div class="dashboard">
     <router-view></router-view>
-  </div>
 </template>
 
 <script>

@@ -17,12 +17,13 @@ class PostRepository
         return $this->oPostModel
             ->query()
             ->orderBy('created_at', 'DESC')
-            ->with(['comments'])
+            ->with(['comments', 'user.userProfile', 'media'])
             ->get();
     }
 
-    public function createPost(array $aData) {
+    public function savePost(array $aData) {
         $aPostData = Arr::only($aData, $this->oPostModel->getFillable());
-        return $this->oPostModel->create($aPostData);
+        return $this->oPostModel
+            ->updateOrCreate(['post_id' => $aPostData['post_id'] ?? null], $aPostData);
     }
 }

@@ -21,6 +21,11 @@ export default {
                     commit('SET_USER', oUser);
 
                     location.replace('/home');
+                })
+                .catch(error => {
+                    if (error.response.status === 401) {
+                        alert('Wrong credentials.');
+                    }
                 });
         },
 

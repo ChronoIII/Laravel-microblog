@@ -1,42 +1,46 @@
 <template>
-        <div>
-            <auth-signup :page="page" @change-page="changePage" />
-            <auth-login :page="page" @change-page="changePage" />
-        </div>
+    <div class="mx-auto mt-5" style="width: 600px;">
+        <ul class="nav nav-pills nav-justified mb-4 border rounded">
+            <li class="nav-item">
+                <a href="#"
+                    :class="{'active' : linkActive === 'login'}"
+                    class="nav-link"
+                    @click.prevent="changeActiveForm('login')">Login</a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#"
+                    :class="{'active' : linkActive === 'register'}"
+                    class="nav-link"
+                    @click.prevent="changeActiveForm('register')">Register</a>
+            </li>
+        </ul>
+
+        <login-form v-if="linkActive === 'login'" :link-active="changeActiveForm" />
+        <register-form v-if="linkActive === 'register'" />
+    </div>
 </template>
 
 <script>
-import authLogin from './login/authLogin.vue';
-import authSignup from './signup/authSignup.vue';
+import loginForm from './loginForm';
+import registerForm from './registerForm';
 
 export default {
     components: {
-        authLogin,
-        authSignup,
+        loginForm,
+        registerForm,
     },
 
     data() {
         return {
-            page: '',
+            linkActive: 'login'
         }
     },
 
     methods: {
-        changePage(pageToBe) {
-            this.page = pageToBe;
-        }
-    },
-    beforeMount() {
-        let a = localStorage.getItem('token');
-        if (a != null) {
-            location.replace('/home');
+        changeActiveForm(sForm) {
+            this.linkActive = sForm;
         }
     }
 }
 </script>
-
-<style scoped>
-    div {
-        display: flex;
-    }
-</style>

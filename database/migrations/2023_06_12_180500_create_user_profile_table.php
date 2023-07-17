@@ -19,6 +19,8 @@ class CreateUserProfileTable extends Migration
             $table->text('first_name');
             $table->text('last_name');
             $table->timestamp('birthdate')->nullable();
+            $table->text('profile_image_path')->nullable();
+            $table->text('cover_image_path')->nullable();
             $table->timestamps();
         });
     }
